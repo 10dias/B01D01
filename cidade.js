@@ -22,12 +22,18 @@ rl.question('Entre com o nome (ou parte do nome) da cidade: \n', function(ans) {
     rl.close();
     http.get(API.host + API.path + ans.toLowerCase().trim(), function(res) {
         var finalData = '';
+
         res.on('data', function(d) {
             finalData +=d;
         });
+
         res.on('end', function() {
             finalData = JSON.parse(finalData);
-            console.log(JSON.stringify(finalData, null, 2));
+            var results = finalData._embedded['city:search-results'];
+            for (var i = 0, len = results.length; i < len; i++) {
+                console.log(results[i].matching_full_name);
+            }
         });
+
     });
 });
