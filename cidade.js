@@ -30,6 +30,7 @@ rl.question('Entre com o nome (ou parte do nome) da cidade: \n', function(ans) {
         res.on('end', function() {
             finalData = JSON.parse(finalData);
             var results = finalData._embedded['city:search-results'];
+            console.log('A sua busca retornou [' + results.length + '] resultados: \n');
             for (var i = 0, len = results.length; i < len; i++) {
                 console.log(results[i].matching_full_name);
             }
